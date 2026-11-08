@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="RamjiMobile.MainPage"
+             BackgroundColor="#1B6D36"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <!-- Casino Green Radial Felt -->
+        <BoxView BackgroundColor="#1E8238" HorizontalOptions="Fill" VerticalOptions="Fill" />
+
+        <!-- MAIN LANDSCAPE LAYOUT -->
+        <Grid RowDefinitions="44, *, 120" Padding="10, 4">
+
+            <!-- 1. TOP STATUS & COMPACT CONTROLS -->
+            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
+                <HorizontalStackLayout Grid.Column="0" Spacing="6" VerticalOptions="Center">
+                    <Border BackgroundColor="#E53E3E" StrokeShape="RoundRectangle 6" Padding="6, 2" StrokeThickness="0">
+                        <Label Text="RAMJI" TextColor="White" FontAttributes="Bold" FontSize="11" VerticalOptions="Center" />
+                    </Border>
+                    <Label x:Name="TxtStatusBar" Text="Tap 'DEAL' to begin" TextColor="#FEFCBF" FontAttributes="Bold" FontSize="12" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <Label x:Name="TxtPrompt" Grid.Column="1" Text="" TextColor="White" FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="Center" VerticalOptions="Center" />
+
+                <HorizontalStackLayout Grid.Column="2" Spacing="6" VerticalOptions="Center">
+                    <Button x:Name="BtnHandToggle" Text="HAND (0)" BackgroundColor="#3182CE" TextColor="White" FontAttributes="Bold" FontSize="10" HeightRequest="32" Padding="8,0" Clicked="BtnHandToggle_Clicked" />
+                    <Button x:Name="BtnAutoArrange" Text="AUTO" BackgroundColor="#38A169" TextColor="White" FontAttributes="Bold" FontSize="10" HeightRequest="32" Padding="8,0" Clicked="BtnAutoArrange_Clicked" IsEnabled="False" />
+                    <Button x:Name="BtnLock" Text="LOCK" BackgroundColor="#D69E2E" TextColor="White" FontAttributes="Bold" FontSize="10" HeightRequest="32" Padding="8,0" Clicked="BtnLock_Clicked" IsEnabled="False" />
+                    <Button x:Name="BtnDeal" Text="DEAL" BackgroundColor="#E53E3E" TextColor="White" FontAttributes="Bold" FontSize="10" HeightRequest="32" Padding="10,0" Clicked="BtnDeal_Clicked" />
+                    <Button x:Name="BtnNext" Text="SHOWDOWN" BackgroundColor="#E53E3E" TextColor="White" FontAttributes="Bold" FontSize="10" HeightRequest="32" Padding="10,0" Clicked="BtnNext_Clicked" IsEnabled="False" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- 2. MIDDLE TABLE: OPPONENTS, LEFTOVER CARD & SHOWDOWN ARENA -->
+            <Grid Grid.Row="1" ColumnDefinitions="110, *, 110" Margin="0, 2">
+
+                <!-- EDWARD (LEFT) -->
+                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                    <Border WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 22" BackgroundColor="#2B6CB0" Stroke="#63B3ED" StrokeThickness="2" Padding="0">
+                        <Label Text="👨🏾" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <Label Text="Edward" TextColor="White" FontAttributes="Bold" FontSize="11" HorizontalTextAlignment="Center" />
+                    <Border BackgroundColor="#3182CE" StrokeShape="RoundRectangle 4" Padding="6,1" StrokeThickness="0">
+                        <Label x:Name="TxtP2Chips" Text="100" TextColor="White" FontAttributes="Bold" FontSize="10" HorizontalTextAlignment="Center" />
+                    </Border>
+                    <Label x:Name="TxtP2Round" Text="0 pts" TextColor="#FEFCBF" FontSize="9" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+
+                <!-- CENTER SHOWDOWN STAGE & TABLE CARD -->
+                <Grid Grid.Column="1" RowDefinitions="Auto, *" VerticalOptions="Center" HorizontalOptions="Center">
+                    <!-- Face-up Table Card -->
+                    <Border Grid.Row="0" BackgroundColor="#134E26" Stroke="#48BB78" StrokeShape="RoundRectangle 8" StrokeThickness="1.5" Padding="8, 3" Margin="0, 0, 0, 6" HorizontalOptions="Center">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="TABLE CARD:" TextColor="#FEFCBF" FontAttributes="Bold" FontSize="11" VerticalOptions="Center" />
+                            <ContentView x:Name="LeftoverCardHost" />
+                            <Label x:Name="TxtLeftoverOwner" Text="Pending" TextColor="White" FontSize="11" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- Active 3-Way Showdown Stage -->
+                    <Border Grid.Row="1" BackgroundColor="#0F3D1E" Stroke="#38A169" StrokeShape="RoundRectangle 12" StrokeThickness="2" Padding="10, 6" HorizontalOptions="Center" WidthRequest="440">
+                        <Grid ColumnDefinitions="*, *, *">
+                            <!-- P1 Reveal -->
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                                <Label Text="You" TextColor="#9AE6B4" FontAttributes="Bold" FontSize="10" HorizontalTextAlignment="Center" />
+                                <HorizontalStackLayout x:Name="P1ShowCards" HorizontalOptions="Center" HeightRequest="64" />
+                                <Label x:Name="P1ShowLabel" Text="-" TextColor="White" FontSize="9" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+                            <!-- P2 Reveal -->
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                                <Label Text="Edward" TextColor="#90CDF4" FontAttributes="Bold" FontSize="10" HorizontalTextAlignment="Center" />
+                                <HorizontalStackLayout x:Name="P2ShowCards" HorizontalOptions="Center" HeightRequest="64" />
+                                <Label x:Name="P2ShowLabel" Text="-" TextColor="White" FontSize="9" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+                            <!-- P3 Reveal -->
+                            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                                <Label Text="Charlie" TextColor="#FEB2B2" FontAttributes="Bold" FontSize="10" HorizontalTextAlignment="Center" />
+                                <HorizontalStackLayout x:Name="P3ShowCards" HorizontalOptions="Center" HeightRequest="64" />
+                                <Label x:Name="P3ShowLabel" Text="-" TextColor="White" FontSize="9" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- CHARLIE (RIGHT) -->
+                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                    <Border WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 22" BackgroundColor="#2B6CB0" Stroke="#63B3ED" StrokeThickness="2" Padding="0">
+                        <Label Text="👨🏻" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <Label Text="Charlie" TextColor="White" FontAttributes="Bold" FontSize="11" HorizontalTextAlignment="Center" />
+                    <Border BackgroundColor="#3182CE" StrokeShape="RoundRectangle 4" Padding="6,1" StrokeThickness="0">
+                        <Label x:Name="TxtP3Chips" Text="100" TextColor="White" FontAttributes="Bold" FontSize="10" HorizontalTextAlignment="Center" />
+                    </Border>
+                    <Label x:Name="TxtP3Round" Text="0 pts" TextColor="#FEFCBF" FontSize="9" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- 3. BOTTOM RACK: 5 MELDS (FANNED OVERLAP, NO SCROLLBAR) -->
+            <Grid Grid.Row="2" ColumnDefinitions="80, *" Margin="0, 4, 0, 0">
+                <!-- Player 1 Status Plate -->
+                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                    <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#C53030" Stroke="#FEB2B2" StrokeThickness="2" Padding="0">
+                        <Label Text="👤" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <Label Text="You" TextColor="White" FontAttributes="Bold" FontSize="11" HorizontalTextAlignment="Center" />
+                    <Border BackgroundColor="#E53E3E" StrokeShape="RoundRectangle 4" Padding="6,1" StrokeThickness="0">
+                        <Label x:Name="TxtP1Chips" Text="100" TextColor="White" FontAttributes="Bold" FontSize="10" HorizontalTextAlignment="Center" />
+                    </Border>
+                    <Label x:Name="TxtP1Round" Text="0 pts" TextColor="#FEFCBF" FontSize="9" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+
+                <!-- 5 Meld Slots Grid -->
+                <Grid Grid.Column="1" ColumnDefinitions="*, *, *, *, *" ColumnSpacing="4">
+                    <!-- M1 -->
+                    <Border Grid.Column="0" x:Name="Slot0" BackgroundColor="#165B2B" Stroke="#38A169" StrokeShape="RoundRectangle 8" StrokeThickness="1.5" Padding="2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MeldSlot_Tapped" CommandParameter="0"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="M1 (1pt)" TextColor="#FAF089" FontAttributes="Bold" FontSize="9" HorizontalTextAlignment="Center" />
+                            <HorizontalStackLayout x:Name="MeldHost0" HorizontalOptions="Center" HeightRequest="56" />
+                            <Label x:Name="MeldLbl0" Text="0/3" TextColor="#E2E8F0" FontSize="8" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <!-- M2 -->
+                    <Border Grid.Column="1" x:Name="Slot1" BackgroundColor="#165B2B" Stroke="#38A169" StrokeShape="RoundRectangle 8" StrokeThickness="1.5" Padding="2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MeldSlot_Tapped" CommandParameter="1"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="M2 (2pt)" TextColor="#FAF089" FontAttributes="Bold" FontSize="9" HorizontalTextAlignment="Center" />
+                            <HorizontalStackLayout x:Name="MeldHost1" HorizontalOptions="Center" HeightRequest="56" />
+                            <Label x:Name="MeldLbl1" Text="0/3" TextColor="#E2E8F0" FontSize="8" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <!-- M3 -->
+                    <Border Grid.Column="2" x:Name="Slot2" BackgroundColor="#165B2B" Stroke="#38A169" StrokeShape="RoundRectangle 8" StrokeThickness="1.5" Padding="2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MeldSlot_Tapped" CommandParameter="2"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="M3 (3pt)" TextColor="#FAF089" FontAttributes="Bold" FontSize="9" HorizontalTextAlignment="Center" />
+                            <HorizontalStackLayout x:Name="MeldHost2" HorizontalOptions="Center" HeightRequest="56" />
+                            <Label x:Name="MeldLbl2" Text="0/3" TextColor="#E2E8F0" FontSize="8" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <!-- M4 -->
+                    <Border Grid.Column="3" x:Name="Slot3" BackgroundColor="#165B2B" Stroke="#38A169" StrokeShape="RoundRectangle 8" StrokeThickness="1.5" Padding="2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MeldSlot_Tapped" CommandParameter="3"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="M4 (4pt)" TextColor="#FAF089" FontAttributes="Bold" FontSize="9" HorizontalTextAlignment="Center" />
+                            <HorizontalStackLayout x:Name="MeldHost3" HorizontalOptions="Center" HeightRequest="56" />
+                            <Label x:Name="MeldLbl3" Text="0/3" TextColor="#E2E8F0" FontSize="8" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <!-- M5 -->
+                    <Border Grid.Column="4" x:Name="Slot4" BackgroundColor="#165B2B" Stroke="#38A169" StrokeShape="RoundRectangle 8" StrokeThickness="1.5" Padding="2">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MeldSlot_Tapped" CommandParameter="4"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="M5 (5pt)" TextColor="#FAF089" FontAttributes="Bold" FontSize="9" HorizontalTextAlignment="Center" />
+                            <HorizontalStackLayout x:Name="MeldHost4" HorizontalOptions="Center" HeightRequest="56" />
+                            <Label x:Name="MeldLbl4" Text="0/3" TextColor="#E2E8F0" FontSize="8" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- 4. SLIDE-UP HAND DRAWER OVERLAY -->
+        <Border x:Name="HandDrawer" IsVisible="False" VerticalOptions="End" BackgroundColor="#0D351B" Stroke="#48BB78" StrokeShape="RoundRectangle 12" StrokeThickness="2" HeightRequest="135" Padding="10, 6">
+            <Grid RowDefinitions="Auto, *">
+                <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="0, 0, 0, 4">
+                    <Label Text="YOUR HAND CARDS (Tap to select, then tap Meld Slot)" TextColor="#FEFCBF" FontAttributes="Bold" FontSize="10" VerticalOptions="Center" />
+                    <HorizontalStackLayout Grid.Column="2" Spacing="6">
+                        <Button Text="Sort Rank" Clicked="BtnSortRank_Clicked" BackgroundColor="#22543D" TextColor="White" FontSize="9" HeightRequest="26" Padding="6, 0" />
+                        <Button Text="Sort Suit" Clicked="BtnSortSuit_Clicked" BackgroundColor="#22543D" TextColor="White" FontSize="9" HeightRequest="26" Padding="6, 0" />
+                        <Button Text="DONE" Clicked="BtnHandToggle_Clicked" BackgroundColor="#E53E3E" TextColor="White" FontSize="9" HeightRequest="26" Padding="8, 0" />
+                    </HorizontalStackLayout>
+                </Grid>
+                <ScrollView Grid.Row="1" Orientation="Horizontal" VerticalScrollBarVisibility="Never">
+                    <HorizontalStackLayout x:Name="HandTrayStack" Spacing="4" VerticalOptions="Center" />
+                </ScrollView>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

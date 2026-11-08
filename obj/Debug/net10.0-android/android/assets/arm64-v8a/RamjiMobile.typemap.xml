@@ -1,0 +1,10 @@
+<api type="debug" assembly-name="RamjiMobile" mvid="3eaeb0a1b87f4bc49660821c08cfb8b7">
+  <java-to-managed>
+    <entry java-name="crc6404e69efcdb5ac800/MainActivity" managed-name="RamjiMobile.MainActivity, RamjiMobile" managed-type-token-id="33554447" />
+    <entry java-name="crc6404e69efcdb5ac800/MainApplication" managed-name="RamjiMobile.MainApplication, RamjiMobile" managed-type-token-id="33554448" />
+  </java-to-managed>
+  <managed-to-java>
+    <entry java-name="crc6404e69efcdb5ac800/MainActivity" managed-name="RamjiMobile.MainActivity, RamjiMobile" managed-type-token-id="33554447" />
+    <entry java-name="crc6404e69efcdb5ac800/MainApplication" managed-name="RamjiMobile.MainApplication, RamjiMobile" managed-type-token-id="33554448" />
+  </managed-to-java>
+</api>

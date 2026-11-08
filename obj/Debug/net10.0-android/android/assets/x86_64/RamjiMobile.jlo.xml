@@ -1,0 +1,15 @@
+<api>
+  <jcw-types>
+    <type name="MainActivity" package="crc6404e69efcdb5ac800" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiAppCompatActivity" partial_assembly_qualified_name="RamjiMobile.MainActivity, RamjiMobile">
+      <constructors>
+        <constructor name="MainActivity" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+        <constructor name="MainActivity" method="n_.ctor:(I)V:" jni_signature="(I)V" managed_parameters="System.Int32, System.Private.CoreLib" params="int p0" retval="void" is_dynamically_registered="True" super_call="p0" activate_call="p0" />
+      </constructors>
+    </type>
+    <type name="MainApplication" package="crc6404e69efcdb5ac800" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiApplication" is_application="True" partial_assembly_qualified_name="RamjiMobile.MainApplication, RamjiMobile" application_constructor="MainApplication" />
+  </jcw-types>
+  <acw-types partial-assembly-name="RamjiMobile" module-name="RamjiMobile.dll">
+    <type assembly-qualified-name="RamjiMobile.MainActivity, RamjiMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="ramjimobile.MainActivity" java-key="crc6404e69efcdb5ac800.MainActivity" managed-key="RamjiMobile.MainActivity" partial-assembly-qualified-name="RamjiMobile.MainActivity, RamjiMobile" />
+    <type assembly-qualified-name="RamjiMobile.MainApplication, RamjiMobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="ramjimobile.MainApplication" java-key="crc6404e69efcdb5ac800.MainApplication" managed-key="RamjiMobile.MainApplication" partial-assembly-qualified-name="RamjiMobile.MainApplication, RamjiMobile" />
+  </acw-types>
+</api>
