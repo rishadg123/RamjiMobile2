@@ -1,0 +1,18 @@
+{
+  "project": "RamjiMobile",
+  "platform": "ios",
+  "github": {
+    "owner": "rishadg123",
+    "repo": "RamjiMobile2"
+  },
+  "provider": "github",
+  "codemagic": {},
+  "bitrise": {},
+  "ios": {},
+  "flutter": {
+    "watch": {}
+  },
+  "reactNative": {},
+  "kmp": {},
+  "mobai": {}
+}
